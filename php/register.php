@@ -20,6 +20,8 @@ list($query, $rek) = dbQuery("SELECT * FROM users WHERE login='$login'");
 if(isset($rek)){ echo "03"; die(); }
 list($query, $rek) = dbQuery("SELECT * FROM users WHERE email='$email'");
 if(isset($rek)){ echo "04"; die(); }
+dbSet("INSERT INTO users (login, hash, token, email) VALUES ('$login', '$password', '$token', '$email')");
+dbSet("INSERT INTO active_users (login, token) VALUES ('$login', '$active_token')");
 $msg = "Aktywacja konta na serwisie game.pl http://localhost/active.php?login=".$login."&token=".$active_token." Kliknij tutaj aby aktywować konto";
 $sended = sendEmail("Aktywacja konta w serwisie game.pl", $msg, $email, $login);
 echo "done";
