@@ -66,7 +66,7 @@ function createInputWithName($type, $firstname, $placeholder, $name, $id, $br){
 //Query functions
 function DBConnect(){ //Create Handler To Database
 	$db = mysqli_connect("localhost", "root", "");
-	mysqli_select_db($db, "jackpot");
+	mysqli_select_db($db, "game");
 	return $db;
 }
 
@@ -89,6 +89,31 @@ return trim(mysqli_real_escape_string($db, strip_tags($string)));
 }
 
 //ANOTHER FUNCTION
+function sendEmail($subject, $msg, $to, $name){
+    require_once('class.phpmailer.php');    //dodanie klasy phpmailer
+    require_once('class.smtp.php');    //dodanie klasy smtp
+    $mail = new PHPMailer();    //utworzenie nowej klasy phpmailer
+    $mail->From = "admin@sampak.cba.pl";    //adres e-mail użyty do wysyłania wiadomości
+    $mail->FromName = "Sampak";    //imię i nazwisko lub nazwa użyta do wysyłania wiadomości
+    $mail->AddReplyTo('admin@sampak.cba.pl', 'mailing'); //adres e-mail nadawcy oraz jego nazwa
+                                                 // w polu "Odpowiedz do"  
+    $mail->Host = "cba.pl";    //adres serwera SMTP wysyłającego e-mail
+    $mail->Mailer = "smtp";    //do wysłania zostanie użyty serwer SMTP
+    $mail->SMTPAuth = true;    //włączenie autoryzacji do serwera SMTP
+    $mail->Username = "admin@sampak.cba.pl";    //nazwa użytkownika do skrzynki e-mail
+    $mail->Password = "jakiestamhaselko";    //hasło użytkownika do skrzynki e-mail
+    $mail->Port = 25; //port serwera SMTP zależny od konfiguracji dostawcy usługi poczty
+    $mail->Subject = $subject;    //Temat wiadomości, można stosować zmienne i znaczniki HTML
+    $mail->Body = $msg;    //Treść wiadomości, można stosować zmienne i znaczniki HTML     
+    $mail->AddAddress ($to, $name);    //adres skrzynki e-mail oraz nazwa adresata, do którego trafi wiadomość
+	
+	if($mail->Send()){
+		return true;
+	} else {
+		return false;
+	}
+
+}
 
 function buildHash($password, $token){ //Genereate Hash from password na salt
 $password = vtxt($password);

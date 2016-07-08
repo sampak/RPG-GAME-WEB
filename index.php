@@ -11,6 +11,8 @@ session_start();
 			<script src="js/jquery-3.0.0.min.js"></script>
 			<script src="js/jquery.session.js"></script>
 			<script src="js/bootstrap.min.js"></script>
+			<script src="js/main.js"></script>
+			<script src="js/login_register.js"></script>
 		<!-- ALL PHP FUNCTIONS -->
 		<?php
 			require_once("php/function.php");
