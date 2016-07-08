@@ -3,12 +3,25 @@
 
 function menuBar(){
 	if(!isset($_SESSION["user_id"])){ 
-		
+	
+	echo '<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="index.php">RPG Game</a>
+				<ul class="nav navbar-nav">
+				
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.php?page=loginpage">Zaloguj się</a></li>
+					<li><a href="index.php?page=registerpage">Załóż nowe konto</a></li>
+				</ul>
+			</div>
+		</nav>';
 	} else {
+		
 		list($query, $rek) = DBQuery("SELECT coins FROM users WHERE id='$_SESSION[user_id]'");
 		echo '<nav class="navbar navbar-default">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="index.php">Pokemon Game</a>
+					<a class="navbar-brand" href="index.php">RPG Game</a>
 					<ul class="nav navbar-nav">
 					
 					<li class="dropdown">
@@ -37,6 +50,15 @@ function menuBar(){
 				</div>
 			</nav>';
 	}	
+}
+
+function createInputWithName($type, $firstname, $placeholder, $name, $id, $br){
+	echo '<div class="input-group">
+				<span class="input-group-addon" id="sizing-addon2">'.$firstname.'</span>
+				<input type="'.$type.'" name='.$name.' id='.$id.' class="form-control" placeholder="'.$placeholder.'" aria-describedby="sizing-addon2">
+		  </div>';
+	if ($br == true){ echo "<br />"; }
+	
 }
 
 //Other Functions
